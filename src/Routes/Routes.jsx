@@ -7,6 +7,7 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import AuthLayout from "../Layouts/AuthLayout";
 import NewsDetails from "../Pages/NewsDetails";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 // const navigatLoader = async () => {
 //     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -49,7 +50,9 @@ export const router = createBrowserRouter([
     {
         path : "/news-details/:id",
         hydrateFallbackElement : <LoadingSpinner></LoadingSpinner>,
-        Component : NewsDetails,
+        element : <PrivateRoute>
+            <NewsDetails></NewsDetails>
+        </PrivateRoute>
     },
     {
         path : "/*",
