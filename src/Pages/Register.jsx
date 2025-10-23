@@ -1,24 +1,44 @@
-import React, { use } from 'react';
-import { Link } from 'react-router';
+import React, { use, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
 
 const Register = () => {
 
-    const {createUser, setUser} = use(AuthContext)
+    const {createUser, setUser, updateUser} = use(AuthContext)
+    const [nameError, setNameError] = useState('')
+
+    const navigate = useNavigate()
 
     const handleRegister = (e) => {
+
         e.preventDefault()
         // console.log(e.target);
         const name = e.target.name.value
+        if(name.length < 5){
+            setNameError('Name should be more than 5 characters')
+            return
+        } 
+        else{
+            setNameError('')
+        }
         const photo = e.target.photo.value
         const email = e.target.email.value
         const password = e.target.password.value
-        console.log({name, photo, email, password})
+        // console.log({name, photo, email, password})
 
         createUser(email, password)
             .then(result => {
-                console.log(result.user);
-                setUser(result.user)
+                // console.log(result.user);
+                updateUser(name, photo)
+                    .then(() => {
+
+                        setUser(result.user)
+                        navigate('/')
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+                
             })
             .catch(error => {
                 console.log(error.message);
@@ -44,6 +64,9 @@ const Register = () => {
                                 <input type="checkbox" className="checkbox" />
                                 <p className='text-accent'>Accept <span className='font-semibold'>Term & Conditions</span></p>
                             </div>
+                            {
+                                nameError && <p className='text-red-400 font-semibold'>{nameError}</p>
+                            }
                             <button type='submit' className="btn btn-neutral mt-4">Register</button>
                             <p className='font-semibold text-center mt-2'>Already Have An Account ? {" "}
                                 <Link className='text-secondary' to='/auth/login'>Login</Link>

@@ -34,7 +34,7 @@ const NewsDetails = () => {
             }
         }
 
-        return fetchData
+        fetchData()
     }, [])
 
     // console.log(data, id, news);

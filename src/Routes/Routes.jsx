@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
     {
         path : "/",
         Component : HomeLayout,
-        hydrateFallbackElement : <LoadingSpinner></LoadingSpinner>,
+        // hydrateFallbackElement : <LoadingSpinner></LoadingSpinner>,
         // loader : navigatLoader,
         children : [
             {
@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
     },
     {
         path : "/news-details/:id",
-        hydrateFallbackElement : <LoadingSpinner></LoadingSpinner>,
+        // hydrateFallbackElement : <LoadingSpinner></LoadingSpinner>,
         element : <PrivateRoute>
             <NewsDetails></NewsDetails>
         </PrivateRoute>
